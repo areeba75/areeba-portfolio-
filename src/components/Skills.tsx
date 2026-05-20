@@ -9,12 +9,12 @@ function SkillBar({ name, level }: { name: string; level: number }) {
   return (
     <div>
       <motion.div className="mb-2 flex justify-between text-sm">
-        <span className="text-white">{name}</span>
+        <span className="text-[var(--color-text)]">{name}</span>
         <span className="text-[var(--color-muted)]">{level}%</span>
       </motion.div>
-      <motion.div className="h-1.5 overflow-hidden rounded-full bg-white/8">
+      <motion.div className="h-1.5 overflow-hidden rounded-full bg-[var(--color-border)]">
         <motion.div
-          className="h-full rounded-full bg-gradient-to-r from-rose-500 to-sky-400"
+          className="h-full rounded-full bg-[var(--accent)]"
           initial={{ width: 0 }}
           whileInView={{ width: `${level}%` }}
           viewport={{ once: true }}
@@ -84,7 +84,7 @@ function TiltCard({
 
 export function Skills() {
   return (
-    <AnimatedSection id="skills" className="px-6 py-24 md:py-32">
+    <AnimatedSection id="skills">
       <motion.div className="mx-auto max-w-6xl">
         <SectionHeading
           label="Skills"
@@ -93,7 +93,7 @@ export function Skills() {
         />
 
         <motion.div
-          className="mb-12 rounded-2xl border border-white/8 bg-[var(--color-surface-elevated)] p-8"
+          className="mb-8 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-elevated)] p-8"
           initial="hidden"
           whileInView="visible"
           viewport={viewport}
@@ -101,7 +101,7 @@ export function Skills() {
         >
           <motion.h3
             variants={staggerItem}
-            className="mb-6 font-[family-name:var(--font-display)] text-lg font-semibold text-white"
+            className="mb-6 font-[family-name:var(--font-display)] text-lg font-semibold text-[var(--color-text)]"
           >
             Core proficiency
           </motion.h3>
@@ -127,22 +127,21 @@ export function Skills() {
           {skillGroups.map((group, groupIndex) => (
             <motion.div key={group.label} variants={staggerItem}>
               <TiltCard index={groupIndex}>
-                <h3 className="font-[family-name:var(--font-display)] text-sm font-semibold uppercase tracking-wider text-sky-400">
+                <h3 className="font-[family-name:var(--font-display)] text-sm font-semibold uppercase tracking-wider text-[var(--color-accent)]">
                   {group.label}
                 </h3>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {group.skills.map((skill, i) => (
                     <motion.span
                       key={skill}
-                      className="rounded-lg border border-white/8 bg-white/5 px-3 py-1.5 text-xs text-[#d0d0de]"
+                      className="skill-pill"
                       initial={{ opacity: 0, scale: 0.9 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ delay: groupIndex * 0.05 + i * 0.03 }}
                       whileHover={{
-                        scale: 1.08,
-                        borderColor: 'rgba(244,63,94,0.35)',
-                        color: '#fff',
+                        scale: 1.05,
+                        y: -3,
                       }}
                     >
                       {skill}

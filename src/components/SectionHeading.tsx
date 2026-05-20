@@ -13,7 +13,7 @@ export function SectionHeading({ label, title, description }: Props) {
 
   return (
     <motion.div
-      className="mb-12 md:mb-16"
+      className="mb-8 md:mb-10"
       initial={reduced ? false : 'hidden'}
       whileInView={reduced ? undefined : 'visible'}
       viewport={viewport}
@@ -21,13 +21,13 @@ export function SectionHeading({ label, title, description }: Props) {
     >
       <motion.span
         variants={staggerItem}
-        className="mb-3 inline-block font-mono text-xs uppercase tracking-[0.2em] text-rose-400"
+        className="mb-3 inline-block text-xs font-medium uppercase tracking-[0.2em] text-[var(--color-accent)]"
       >
         {label}
       </motion.span>
       <motion.h2
         variants={staggerItem}
-        className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight text-white md:text-4xl lg:text-5xl"
+        className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight text-[var(--color-text)] md:text-4xl lg:text-5xl"
       >
         {title}
       </motion.h2>

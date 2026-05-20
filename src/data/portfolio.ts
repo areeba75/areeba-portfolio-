@@ -5,8 +5,14 @@ export const profile = {
   location: 'Lahore, Pakistan',
   email: 'areebaars1@gmail.com',
   phone: '+92 309 4766573',
+  whatsapp: 'https://wa.me/923094766573',
   github: 'https://github.com/areeba75',
   linkedin: 'https://www.linkedin.com/in/areeba-arshad-2b14b2315/',
+  resumeUrl: '/resume.pdf',
+  linkedinTitle: 'Frontend Engineer • React Developer • UI Enthusiast',
+  linkedinFollowers: '500+',
+  linkedinConnections: '500+',
+  availableFor: 'Open to work',
   summary:
     'Frontend Engineer with 2+ years of experience building scalable, responsive, and high-performance web applications using React.js, Next.js, and TypeScript. Skilled in developing reusable component systems, integrating REST APIs, optimizing frontend performance, and translating product and UI/UX requirements into production-ready interfaces.',
   highlights: [
@@ -162,6 +168,7 @@ export type Project = {
   stack: string[]
   description: string
   gradient: string
+  image?: string
   href?: string
   secondaryHref?: string
 }
@@ -173,6 +180,7 @@ export const projects: Project[] = [
     description:
       'AI-powered admission platform helping students apply to universities across multiple countries with eligibility checking, dashboards, authentication, and AI-assisted consultation features.',
     gradient: 'from-sky-500/20 to-cyan-500/10',
+    image: '/wwah.png',
     href: 'https://wwah.ai/',
   },
   {
@@ -181,6 +189,7 @@ export const projects: Project[] = [
     description:
       'Vehicle marketplace platform with advanced search, filtering, responsive UI, and optimized frontend performance for browsing and discovering vehicles.',
     gradient: 'from-rose-500/20 to-orange-500/10',
+    image: '/carflix.png',
     href: 'https://carflix.scraperrs.com/',
   },
   {
@@ -189,6 +198,7 @@ export const projects: Project[] = [
     description:
       'E-commerce mall platform with modern storefront experience, responsive layouts, and performance-focused frontend for online retail.',
     gradient: 'from-red-500/20 to-amber-500/10',
+    image: '/redsea.png',
     href: 'https://redseamall.com/',
   },
   {
@@ -197,6 +207,7 @@ export const projects: Project[] = [
     description:
       'Scalable frontend modules, reusable UI components, localization features, and responsive interfaces for digital platform experiences.',
     gradient: 'from-emerald-500/20 to-teal-500/10',
+    image: '/jaldi.png',
     href: 'http://pucture-frontend.scraperrs.com/',
   },
   {
@@ -205,6 +216,7 @@ export const projects: Project[] = [
     description:
       'Responsive frontend interfaces, API integrations, dashboard systems, and modern UI implementation for a SaaS-based styling platform.',
     gradient: 'from-violet-500/20 to-fuchsia-500/10',
+    image: '/stylz.png',
     href: 'https://dev.stylz.me/',
   },
   {
@@ -213,6 +225,7 @@ export const projects: Project[] = [
     description:
       'Built and optimized frontend dashboards, authentication flows, and dynamic UI components for a production SaaS product with role-based access.',
     gradient: 'from-indigo-500/20 to-purple-500/10',
+    image: '/pulse.png',
     href: 'https://pulsse.io/',
     secondaryHref: 'https://saas.pulsse.io/auth/login',
   },
@@ -222,6 +235,7 @@ export const projects: Project[] = [
     description:
       'Art gallery e-commerce website for original paintings and canvas prints — product catalog, collections, services, and a responsive shopping experience.',
     gradient: 'from-amber-500/20 to-orange-500/10',
+    image: '/miguelcamerana.png',
     href: 'https://miguelcamarena.com/',
   },
   {
@@ -230,6 +244,7 @@ export const projects: Project[] = [
     description:
       'Startup platform for young entrepreneurs to launch ideas with mentorship, incubation programs, funding guidance, and step-by-step support from ideation to growth.',
     gradient: 'from-lime-500/20 to-green-500/10',
+    image: '/pakpreneurship.png',
     href: 'https://pak-preneurships.vercel.app/',
   },
 ]
@@ -291,7 +306,12 @@ export const navLinks = [
   { id: 'experience', label: 'Experience' },
   { id: 'skills', label: 'Skills' },
   { id: 'projects', label: 'Projects' },
-  { id: 'testimonials', label: 'Testimonials' },
   { id: 'education', label: 'Education' },
   { id: 'contact', label: 'Contact' },
 ]
+
+export const roleCycle = [
+  'Frontend Engineer',
+  'React Developer',
+  'UI Enthusiast',
+] as const

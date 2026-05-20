@@ -21,11 +21,11 @@ export function CursorGlow() {
 
   if (reduced) return null
 
-  const background = useMotionTemplate`radial-gradient(600px circle at ${x}px ${y}px, rgba(244,63,94,0.07), transparent 55%)`
+  const background = useMotionTemplate`radial-gradient(400px circle at ${x}px ${y}px, rgba(247, 37, 133, 0.06), transparent 70%)`
 
   return (
     <motion.div
-      className="pointer-events-none fixed inset-0 z-30"
+      className="pointer-events-none fixed inset-0 z-0"
       style={{ background }}
       aria-hidden
     />

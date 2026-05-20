@@ -9,7 +9,7 @@ import { SpotlightCard } from './ui/SpotlightCard'
 
 export function About() {
   return (
-    <AnimatedSection id="about" className="px-6 py-24 md:py-32">
+    <AnimatedSection id="about">
       <motion.div className="mx-auto max-w-6xl">
         <SectionHeading
           label="About"
@@ -19,7 +19,7 @@ export function About() {
 
         <div className="grid gap-8 lg:grid-cols-2">
           <SpotlightCard className="p-8">
-            <h3 className="font-[family-name:var(--font-display)] text-xl font-semibold text-white">
+            <h3 className="font-[family-name:var(--font-display)] text-xl font-semibold text-[var(--color-text)]">
               What I bring to your team
             </h3>
             <p className="mt-4 leading-relaxed text-[var(--color-muted)]">
@@ -42,7 +42,7 @@ export function About() {
                 { value: 10, suffix: '+', label: 'Core technologies' },
               ].map((stat) => (
                 <motion.div key={stat.label} variants={staggerItem}>
-                  <p className="font-[family-name:var(--font-display)] text-3xl font-bold text-rose-400">
+                  <p className="font-[family-name:var(--font-display)] text-3xl font-bold text-[var(--accent)]">
                     <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                   </p>
                   <p className="mt-1 text-sm text-[var(--color-muted)]">
@@ -65,9 +65,9 @@ export function About() {
                 <SpotlightCard className="flex items-start gap-3 p-4">
                   <CheckCircle2
                     size={20}
-                    className="mt-0.5 shrink-0 text-sky-400"
+                    className="mt-0.5 shrink-0 text-[var(--accent)]"
                   />
-                  <span className="text-sm text-[#c4c4d4]">{text}</span>
+                  <span className="text-sm text-[var(--color-muted)]">{text}</span>
                 </SpotlightCard>
               </motion.li>
             ))}

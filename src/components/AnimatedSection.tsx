@@ -15,7 +15,7 @@ export function AnimatedSection({ children, id, className = '' }: Props) {
   return (
     <motion.section
       id={id}
-      className={className}
+      className={`px-6 py-14 md:py-20 ${className}`}
       initial={reduced ? false : 'hidden'}
       whileInView={reduced ? undefined : 'visible'}
       viewport={viewport}

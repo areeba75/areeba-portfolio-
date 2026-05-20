@@ -12,7 +12,7 @@ export function SpotlightCard({ children, className = '' }: Props) {
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
 
-  const background = useMotionTemplate`radial-gradient(480px circle at ${mouseX}px ${mouseY}px, rgba(244,63,94,0.12), transparent 65%)`
+  const background = useMotionTemplate`radial-gradient(480px circle at ${mouseX}px ${mouseY}px, var(--color-spotlight), transparent 65%)`
 
   const onMove = (e: MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect()
@@ -22,7 +22,7 @@ export function SpotlightCard({ children, className = '' }: Props) {
 
   return (
     <motion.div
-      className={`group relative overflow-hidden rounded-2xl border border-white/8 bg-[var(--color-surface-elevated)] ${className}`}
+      className={`group relative overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-elevated)] ${className}`}
       onMouseMove={reduced ? undefined : onMove}
       whileHover={reduced ? undefined : { y: -6 }}
       transition={{ type: 'spring', stiffness: 300, damping: 22 }}
@@ -33,16 +33,7 @@ export function SpotlightCard({ children, className = '' }: Props) {
           style={{ background }}
         />
       )}
-      <motion.div
-        className="relative z-10"
-        style={
-          reduced
-            ? undefined
-            : { rotateX: 0, rotateY: 0, transformStyle: 'preserve-3d' }
-        }
-      >
-        {children}
-      </motion.div>
+      <div className="relative z-10">{children}</div>
     </motion.div>
   )
 }
