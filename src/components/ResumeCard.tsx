@@ -46,8 +46,7 @@ const cardSurface =
 const downloadBtn =
   'bg-[var(--accent)] text-[var(--on-accent)] shadow-[var(--accent-glow)] hover:brightness-110'
 
-const viewBtn =
-  'bg-[var(--text-primary)] text-[var(--bg-primary)] hover:brightness-90'
+const viewBtn = 'bg-white text-[#0f0f0f] hover:bg-zinc-100'
 
 export interface ResumeCardProps {
   resumeUrl?: string
@@ -91,7 +90,7 @@ export function ResumeCard({
         href={resumeUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className={`flex w-full items-center justify-center gap-2 rounded-full py-3 text-sm font-semibold text-white transition-colors ${viewBtn}`}
+        className={`flex w-full items-center justify-center gap-2 rounded-full py-3 text-sm font-semibold transition-colors ${viewBtn}`}
       >
         <Eye size={18} aria-hidden />
         Let&apos;s View

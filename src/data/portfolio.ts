@@ -4,8 +4,6 @@ export const profile = {
   tagline: 'React.js · Next.js · TypeScript',
   location: 'Lahore, Pakistan',
   email: 'areebaars1@gmail.com',
-  phone: '+92 309 4766573',
-  whatsapp: 'https://wa.me/923094766573',
   github: 'https://github.com/areeba75',
   linkedin: 'https://www.linkedin.com/in/areeba-arshad-2b14b2315/',
   resumeUrl: '/resume.pdf',
@@ -246,6 +244,15 @@ export const projects: Project[] = [
     gradient: 'from-lime-500/20 to-green-500/10',
     image: '/pakpreneurship.png',
     href: 'https://pak-preneurships.vercel.app/',
+  },
+  {
+    title: 'Halagaty',
+    stack: ['React.js', 'Next.js', 'TypeScript'],
+    description:
+      'Fresh groceries and daily deals platform with responsive storefront UI, product discovery, and a modern retail-focused shopping experience.',
+    gradient: 'from-green-500/20 to-emerald-500/10',
+    image: '/halagaty.png',
+    href: 'https://dev.halagaty.com/',
   },
 ]
 
