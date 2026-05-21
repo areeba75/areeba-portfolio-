@@ -42,7 +42,7 @@ export function Hero() {
 
           <motion.h1
             variants={heroItem}
-            className="font-[family-name:var(--font-display)] text-4xl font-extrabold leading-tight tracking-tight text-[var(--color-text)] sm:text-5xl md:text-6xl"
+            className="min-h-[1.2em] font-[family-name:var(--font-display)] text-4xl font-extrabold leading-tight tracking-tight text-[var(--color-text)] sm:text-5xl md:text-6xl"
           >
             <Typewriter words={roleCycle} className="text-[var(--accent)] font-extrabold" />
           </motion.h1>
