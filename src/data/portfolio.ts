@@ -6,7 +6,7 @@ export const profile = {
   email: 'areebaars1@gmail.com',
   github: 'https://github.com/areeba75',
   linkedin: 'https://www.linkedin.com/in/areeba-arshad-2b14b2315/',
-  resumeUrl: '/resume.pdf',
+  resumeUrl: '/Areeba_Arshad_Frontend-Developer(React).pdf',
   linkedinTitle: 'Frontend Engineer • React Developer • UI Enthusiast',
   linkedinFollowers: '500+',
   linkedinConnections: '500+',

@@ -80,7 +80,7 @@ export function ResumeCard({
     <div className="flex flex-col gap-3">
       <a
         href={resumeUrl}
-        download="Areeba-Arshad-Resume.pdf"
+        download="Areeba_Arshad_Frontend-Developer(React).pdf"
         className={`flex w-full items-center justify-center gap-2 rounded-full py-3 text-sm font-semibold text-white transition-colors ${downloadBtn}`}
       >
         <Download size={18} aria-hidden />
