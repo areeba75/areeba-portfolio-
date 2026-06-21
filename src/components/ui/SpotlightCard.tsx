@@ -22,10 +22,10 @@ export function SpotlightCard({ children, className = '' }: Props) {
 
   return (
     <motion.div
-      className={`group relative overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-elevated)] ${className}`}
+      className={`group relative overflow-hidden rounded-3xl border border-[var(--color-border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))] shadow-[0_0_0_1px_rgba(255,255,255,0.02),0_18px_50px_rgba(0,0,0,0.28)] backdrop-blur-xl ${className}`}
       onMouseMove={reduced ? undefined : onMove}
-      whileHover={reduced ? undefined : { y: -6 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 22 }}
+      whileHover={reduced ? undefined : { y: -8, scale: 1.01 }}
+      transition={{ type: 'spring', stiffness: 260, damping: 22 }}
     >
       {!reduced && (
         <motion.div
@@ -33,6 +33,8 @@ export function SpotlightCard({ children, className = '' }: Props) {
           style={{ background }}
         />
       )}
+      <div className="absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-[var(--accent)]/40 to-transparent" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,47,144,0.06),transparent_22%)]" />
       <div className="relative z-10">{children}</div>
     </motion.div>
   )

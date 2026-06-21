@@ -1,4 +1,4 @@
-import { motion, type Variants } from 'framer-motion'
+import { motion, useMotionTemplate, useMotionValue, type Variants } from 'framer-motion'
 import { Download, Eye } from 'lucide-react'
 import { profile } from '../data/portfolio'
 import { useReducedMotion } from '../hooks/useReducedMotion'
@@ -41,7 +41,7 @@ const buttonsVariants: Variants = {
 const DEFAULT_AVATAR = '/avatar-removebg-preview.png'
 
 const cardSurface =
-  'border border-[var(--border)] bg-[var(--bg-card)] shadow-xl transition-shadow duration-300 hover:shadow-[var(--accent-glow)]'
+  'border border-[var(--border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02))] shadow-[0_18px_50px_rgba(0,0,0,0.35)] backdrop-blur-xl transition-all duration-300 hover:shadow-[0_0_0_1px_rgba(247,37,133,0.18),0_24px_80px_rgba(247,37,133,0.18)]'
 
 const downloadBtn =
   'bg-[var(--accent)] text-[var(--on-accent)] shadow-[var(--accent-glow)] hover:brightness-110'
@@ -64,6 +64,10 @@ export function ResumeCard({
   className = '',
 }: ResumeCardProps) {
   const reduced = useReducedMotion()
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+
+  const glow = useMotionTemplate`radial-gradient(340px circle at ${mouseX}px ${mouseY}px, rgba(247,37,133,0.15), transparent 40%)`
 
   const cardClass = `relative w-[280px] overflow-hidden rounded-3xl border ${cardSurface} sm:w-[300px] ${className}`
 
@@ -114,9 +118,19 @@ export function ResumeCard({
       whileHover="hover"
       animate="rest"
       variants={cardVariants}
+      onMouseMove={(e) => {
+        const rect = e.currentTarget.getBoundingClientRect()
+        mouseX.set(e.clientX - rect.left)
+        mouseY.set(e.clientY - rect.top)
+      }}
       aria-label="Interactive resume card"
     >
+      <motion.div
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        style={{ background: glow }}
+      />
       <div className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-[var(--accent-soft)] blur-2xl" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,47,144,0.08),transparent_24%)]" />
 
       <div className="relative px-6 pt-6">{header}</div>
 

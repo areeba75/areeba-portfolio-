@@ -16,8 +16,10 @@ export function Hero() {
       id="hero"
       className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-[var(--bg-primary)] px-6 pt-24 pb-14"
     >
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,47,144,0.08),transparent_18%),radial-gradient(circle_at_bottom,rgba(111,123,255,0.08),transparent_20%)]" />
+
       <motion.div
-        className="mx-auto grid w-full max-w-6xl items-center gap-12 lg:grid-cols-[1fr_auto]"
+        className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-12 lg:grid-cols-[1fr_auto]"
         variants={heroContainer}
         initial="hidden"
         animate="visible"
