@@ -282,9 +282,9 @@ export const coreSkills = [
   { name: 'React.js', level: 95 },
   { name: 'Next.js', level: 92 },
   { name: 'TypeScript', level: 90 },
-  { name: 'JavaScript', level: 93 },
-  { name: 'Tailwind CSS', level: 88 },
-  { name: 'Node.js', level: 78 },
+  { name: 'JavaScript', level: 70 },
+  { name: 'Tailwind CSS', level: 92 },
+  { name: 'Node.js', level: 60 },
 ]
 
 export const testimonials = [

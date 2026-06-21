@@ -1,16 +1,27 @@
 import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
+import { useTheme } from '../../providers/ThemeProvider'
 
 export function GlobalThreeScene() {
   const mountRef = useRef<HTMLDivElement | null>(null)
+  const { theme } = useTheme()
 
   useEffect(() => {
     const mount = mountRef.current
     if (!mount) return
 
+    const isDark = theme === 'dark'
+    const sceneBackground = isDark ? 0x02020a : 0xf7f3ff
+    const fogColor = isDark ? 0x02020a : 0xf7f3ff
+    const accentColor = isDark ? 0xff2f90 : 0xe85a8d
+    const accentSoft = isDark ? 0x6f22d2 : 0xcaa8ff
+    const starColor = isDark ? 0xff7ecf : 0xff88bf
+    const haloColor = isDark ? 0xff5aa5 : 0xef6fa8
+    const ringColor = isDark ? 0x9d5bff : 0xc98dff
+
     const scene = new THREE.Scene()
-    scene.background = new THREE.Color(0x02020a)
-    scene.fog = new THREE.FogExp2(0x02020a, 0.08)
+    scene.background = new THREE.Color(sceneBackground)
+    scene.fog = new THREE.FogExp2(fogColor, isDark ? 0.08 : 0.06)
 
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100)
     camera.position.set(0, 0, 7)
@@ -44,11 +55,11 @@ export function GlobalThreeScene() {
 
     starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3))
     const starMaterial = new THREE.PointsMaterial({
-      color: 0xff7ecf,
-      size: 0.08,
+      color: starColor,
+      size: isDark ? 0.08 : 0.06,
       sizeAttenuation: true,
       transparent: true,
-      opacity: 0.72,
+      opacity: isDark ? 0.72 : 0.48,
       blending: THREE.AdditiveBlending,
     })
     const stars = new THREE.Points(starGeometry, starMaterial)
@@ -57,13 +68,13 @@ export function GlobalThreeScene() {
     const glowSphere = new THREE.Mesh(
       new THREE.SphereGeometry(1.7, 64, 64),
       new THREE.MeshStandardMaterial({
-        color: 0x2b0a5b,
-        emissive: 0x6f22d2,
-        emissiveIntensity: 0.9,
+        color: isDark ? 0x2b0a5b : 0xf1e8ff,
+        emissive: accentSoft,
+        emissiveIntensity: isDark ? 0.9 : 0.5,
         metalness: 0.1,
-        roughness: 0.18,
+        roughness: isDark ? 0.18 : 0.22,
         transparent: true,
-        opacity: 0.78,
+        opacity: isDark ? 0.78 : 0.55,
       }),
     )
     glowSphere.position.set(0.4, 0.2, 0)
@@ -72,15 +83,15 @@ export function GlobalThreeScene() {
     const torusKnot = new THREE.Mesh(
       new THREE.TorusKnotGeometry(1.15, 0.32, 240, 32),
       new THREE.MeshPhysicalMaterial({
-        color: 0xff2f90,
-        emissive: 0x24061c,
-        emissiveIntensity: 1.1,
+        color: accentColor,
+        emissive: isDark ? 0x24061c : 0xf7d7ea,
+        emissiveIntensity: isDark ? 1.1 : 0.65,
         metalness: 0.2,
-        roughness: 0.1,
-        transmission: 0.18,
-        thickness: 0.8,
+        roughness: isDark ? 0.1 : 0.18,
+        transmission: isDark ? 0.18 : 0.1,
+        thickness: isDark ? 0.8 : 0.6,
         clearcoat: 1,
-        clearcoatRoughness: 0.08,
+        clearcoatRoughness: isDark ? 0.08 : 0.12,
       }),
     )
     root.add(torusKnot)
@@ -88,9 +99,9 @@ export function GlobalThreeScene() {
     const ring = new THREE.Mesh(
       new THREE.TorusGeometry(1.8, 0.04, 64, 180),
       new THREE.MeshBasicMaterial({
-        color: 0x9d5bff,
+        color: ringColor,
         transparent: true,
-        opacity: 0.18,
+        opacity: isDark ? 0.18 : 0.12,
         wireframe: true,
       }),
     )
@@ -100,22 +111,22 @@ export function GlobalThreeScene() {
     const halo = new THREE.Mesh(
       new THREE.SphereGeometry(3.2, 32, 32),
       new THREE.MeshBasicMaterial({
-        color: 0xff5aa5,
+        color: haloColor,
         transparent: true,
-        opacity: 0.04,
+        opacity: isDark ? 0.04 : 0.06,
         side: THREE.BackSide,
       }),
     )
     root.add(halo)
 
-    const ambientLight = new THREE.AmbientLight(0xb38dff, 1.3)
+    const ambientLight = new THREE.AmbientLight(isDark ? 0xb38dff : 0xe7dbff, isDark ? 1.3 : 1.1)
     scene.add(ambientLight)
 
-    const keyLight = new THREE.PointLight(0xff4da6, 35, 18)
+    const keyLight = new THREE.PointLight(isDark ? 0xff4da6 : 0xff7eb3, isDark ? 35 : 22, 18)
     keyLight.position.set(3.2, 2.4, 5)
     scene.add(keyLight)
 
-    const fillLight = new THREE.PointLight(0x6f7bff, 18, 15)
+    const fillLight = new THREE.PointLight(isDark ? 0x6f7bff : 0xb5b3ff, isDark ? 18 : 12, 15)
     fillLight.position.set(-4, -1.8, -3)
     scene.add(fillLight)
 
@@ -175,7 +186,7 @@ export function GlobalThreeScene() {
       renderer.dispose()
       mount.removeChild(renderer.domElement)
     }
-  }, [])
+  }, [theme])
 
   return <div ref={mountRef} className="pointer-events-none fixed inset-0 z-0 overflow-hidden" />
 }

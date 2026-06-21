@@ -27,14 +27,14 @@ export function SectionHeading({ label, title, description }: Props) {
       </motion.span>
       <motion.h2
         variants={staggerItem}
-        className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight text-[var(--color-text)] md:text-4xl lg:text-5xl"
+        className="font-[family-name:var(--font-display)] text-3xl font-bold tracking-tight text-white md:text-4xl lg:text-5xl"
       >
         {title}
       </motion.h2>
       {description && (
         <motion.p
           variants={staggerItem}
-          className="mt-4 max-w-2xl text-base text-[var(--color-muted)] md:text-lg"
+          className="mt-4 max-w-2xl text-base text-white/80 md:text-lg"
         >
           {description}
         </motion.p>
