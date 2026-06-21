@@ -51,7 +51,7 @@ export function Testimonials() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                className="text-lg leading-relaxed text-[#d8d8e8] md:text-xl"
+                className="text-lg leading-relaxed text-[var(--color-text)] md:text-xl"
               >
                 &ldquo;{current.quote}&rdquo;
               </motion.blockquote>
@@ -66,8 +66,8 @@ export function Testimonials() {
               exit={{ opacity: 0 }}
               className="mt-8 border-t border-white/10 pt-6"
             >
-              <p className="font-semibold text-white">{current.author}</p>
-              <p className="mt-1 text-sm text-sky-400">{current.role}</p>
+              <p className="font-semibold text-[var(--color-text)]">{current.author}</p>
+              <p className="mt-1 text-sm text-[var(--color-accent)]">{current.role}</p>
             </motion.footer>
           </AnimatePresence>
 
