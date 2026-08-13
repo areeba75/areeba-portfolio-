@@ -19,7 +19,7 @@ export function Hero() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,47,144,0.08),transparent_18%),radial-gradient(circle_at_bottom,rgba(111,123,255,0.08),transparent_20%)]" />
 
       <motion.div
-        className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-10 sm:gap-12 lg:grid-cols-[1fr_auto] lg:gap-12"
+        className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-10 sm:gap-12 lg:grid-cols-[1fr_auto] lg:gap-12"
         variants={heroContainer}
         initial="hidden"
         animate="visible"
