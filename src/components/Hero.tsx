@@ -14,20 +14,20 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-[var(--bg-primary)] px-6 pt-24 pb-14"
+      className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-[var(--bg-primary)] px-4 pt-24 pb-14 sm:px-6 sm:pt-28 sm:pb-16"
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,47,144,0.08),transparent_18%),radial-gradient(circle_at_bottom,rgba(111,123,255,0.08),transparent_20%)]" />
 
       <motion.div
-        className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-12 lg:grid-cols-[1fr_auto]"
+        className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-10 sm:gap-12 lg:grid-cols-[1fr_auto] lg:gap-12"
         variants={heroContainer}
         initial="hidden"
         animate="visible"
       >
-        <div>
+        <div className="min-w-0 text-center lg:text-left">
           <motion.p
             variants={heroItem}
-            className="mb-4 text-lg text-[var(--color-text)] md:text-xl"
+            className="mb-4 text-base text-[var(--color-text)] sm:text-lg md:text-xl"
           >
             <motion.span
               className="mr-2 inline-block origin-[70%_70%]"
@@ -44,26 +44,34 @@ export function Hero() {
 
           <motion.h1
             variants={heroItem}
-            className="min-h-[1.2em] font-[family-name:var(--font-display)] text-4xl font-extrabold leading-tight tracking-tight text-[var(--color-text)] sm:text-5xl md:text-6xl"
+            className="md:min-h-[1.2em] break-words font-[family-name:var(--font-display)] text-xl md:text-3xl font-extrabold leading-tight tracking-tight text-[var(--color-text)] sm:text-5xl md:text-6xl"
           >
-            <Typewriter words={roleCycle} className="text-[var(--accent)] font-extrabold" />
+            <Typewriter
+              words={roleCycle}
+              className="text-[var(--accent)] font-extrabold"
+            />
           </motion.h1>
 
           <motion.p
             variants={heroItem}
-            className="mt-6 max-w-xl text-base leading-relaxed text-[var(--color-muted)] md:text-lg"
+            className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-[var(--color-muted)] sm:text-base md:text-lg lg:mx-0"
           >
             {profile.summary}
           </motion.p>
 
           <motion.div
             variants={heroItem}
-            className="mt-10 flex flex-wrap items-center gap-4"
+            className="mt-8 flex flex-col items-stretch gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-4 lg:justify-start"
           >
-            <ShimmerButton href={profile.resumeUrl} download="Areeba-Arshad-Resume.pdf" variant="primary">
+            <ShimmerButton
+              href={profile.resumeUrl}
+              download="Areeba-Arshad-Resume.pdf"
+              variant="primary"
+            >
               <Download size={18} />
               Download Resume
             </ShimmerButton>
+
             <ShimmerButton
               href="#projects"
               variant="ghost"
@@ -77,7 +85,10 @@ export function Hero() {
           </motion.div>
         </div>
 
-        <motion.div variants={heroItem} className="flex justify-center lg:justify-end">
+        <motion.div
+          variants={heroItem}
+          className="flex w-full justify-center lg:w-auto lg:justify-end"
+        >
           <ResumeCard />
         </motion.div>
       </motion.div>
@@ -88,7 +99,7 @@ export function Hero() {
           e.preventDefault()
           scrollToSection('about', lenis)
         }}
-        className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-[var(--color-muted)] transition-colors hover:text-[var(--color-accent)]"
+        className="absolute bottom-5 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-[var(--color-muted)] transition-colors hover:text-[var(--color-accent)] sm:bottom-8"
         aria-label="Scroll to about"
         animate={{ y: [0, 8, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}

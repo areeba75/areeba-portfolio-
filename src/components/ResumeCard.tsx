@@ -132,7 +132,7 @@ export function ResumeCard({
       <div className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-[var(--accent-soft)] blur-2xl" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,47,144,0.08),transparent_24%)]" />
 
-      <div className="relative px-6 pt-6">{header}</div>
+      <div className="relative md:px-6 pt-6 text-center">{header}</div>
 
       <div className="relative mt-4 h-[220px] overflow-hidden">
         <div className="pointer-events-none absolute bottom-0 left-1/2 h-28 w-40 -translate-x-1/2 rounded-full bg-[var(--accent-soft)] blur-2xl" />
