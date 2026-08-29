@@ -88,7 +88,7 @@ export function ResumeCard({
   const badge = (
     <div className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-[var(--accent)]/40 bg-[var(--accent)]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
       <Sparkles size={11} aria-hidden />
-      Available for hire
+      Open to opportunities
     </div>
   )
 
