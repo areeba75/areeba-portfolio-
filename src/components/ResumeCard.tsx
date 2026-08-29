@@ -1,5 +1,5 @@
 import { motion, useMotionTemplate, useMotionValue, type Variants } from 'framer-motion'
-import { Download, Eye } from 'lucide-react'
+import { Download, Eye, Sparkles } from 'lucide-react'
 import { profile } from '../data/portfolio'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 
@@ -14,11 +14,18 @@ const cardVariants: Variants = {
   },
 }
 
-const avatarVariants: Variants = {
-  rest: { y: 0, opacity: 1 },
+const photoVariants: Variants = {
+  rest: { scale: 1.02 },
   hover: {
-    y: 60,
-    opacity: 0.12,
+    scale: 1.1,
+    transition: { duration: 0.7, ease: EASE },
+  },
+}
+
+const scrimVariants: Variants = {
+  rest: { opacity: 0.6 },
+  hover: {
+    opacity: 0.94,
     transition: { duration: DURATION, ease: EASE },
   },
 }
@@ -26,7 +33,7 @@ const avatarVariants: Variants = {
 const buttonsVariants: Variants = {
   rest: {
     opacity: 0,
-    y: 20,
+    y: 18,
     pointerEvents: 'none',
     transition: { duration: DURATION, ease: EASE },
   },
@@ -34,19 +41,28 @@ const buttonsVariants: Variants = {
     opacity: 1,
     y: 0,
     pointerEvents: 'auto',
+    transition: { duration: DURATION, ease: EASE, delay: 0.06 },
+  },
+}
+
+const infoVariants: Variants = {
+  rest: { y: 0 },
+  hover: {
+    y: -8,
     transition: { duration: DURATION, ease: EASE },
   },
 }
 
-const DEFAULT_AVATAR = '/avatar-removebg-preview.png'
+const DEFAULT_AVATAR = '/linkedin.jpg'
 
 const cardSurface =
-  'border border-[var(--border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02))] shadow-[0_18px_50px_rgba(0,0,0,0.35)] backdrop-blur-xl transition-all duration-300 hover:shadow-[0_0_0_1px_rgba(247,37,133,0.18),0_24px_80px_rgba(247,37,133,0.18)]'
+  'shadow-[0_20px_60px_rgba(0,0,0,0.45)] transition-all duration-500 hover:shadow-[0_30px_100px_rgba(247,37,133,0.28)]'
 
 const downloadBtn =
-  'bg-[var(--accent)] text-[var(--on-accent)] shadow-[var(--accent-glow)] hover:brightness-110'
+  'bg-[var(--accent)] text-[var(--on-accent)] shadow-[var(--accent-glow)] hover:brightness-110 hover:-translate-y-0.5'
 
-const viewBtn = 'bg-white text-[#0f0f0f] hover:bg-zinc-100'
+const viewBtn =
+  'bg-white/[0.08] text-white border border-white/20 backdrop-blur-md hover:bg-white/[0.16] hover:-translate-y-0.5'
 
 export interface ResumeCardProps {
   resumeUrl?: string
@@ -67,92 +83,129 @@ export function ResumeCard({
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
 
-  const glow = useMotionTemplate`radial-gradient(340px circle at ${mouseX}px ${mouseY}px, rgba(247,37,133,0.15), transparent 40%)`
+  const glow = useMotionTemplate`radial-gradient(380px circle at ${mouseX}px ${mouseY}px, rgba(247,37,133,0.22), transparent 45%)`
 
-  const cardClass = `relative w-[280px] overflow-hidden rounded-3xl border ${cardSurface} sm:w-[300px] ${className}`
-
-  const header = (
-    <>
-      <h3 className="font-[family-name:var(--font-display)] text-2xl font-bold text-[var(--text-primary)]">
-        {title}
-      </h3>
-      <p className="mt-1 text-sm font-medium text-[var(--accent)]">{subtitle}</p>
-    </>
-  )
+  const outerClass = `relative w-[300px] sm:w-[320px] ${className}`
 
   const buttons = (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-2.5">
       <a
         href={resumeUrl}
         download="Areeba_Arshad_Frontend-Developer(React).pdf"
-        className={`flex w-full items-center justify-center gap-2 rounded-full py-3 text-sm font-semibold text-white transition-colors ${downloadBtn}`}
+        className={`flex w-full items-center justify-center gap-2 rounded-full py-3 text-sm font-semibold text-white transition-all duration-300 ${downloadBtn}`}
       >
-        <Download size={18} aria-hidden />
+        <Download size={17} aria-hidden />
         Download
       </a>
       <a
         href={resumeUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className={`flex w-full items-center justify-center gap-2 rounded-full py-3 text-sm font-semibold transition-colors ${viewBtn}`}
+        className={`flex w-full items-center justify-center gap-2 rounded-full py-3 text-sm font-semibold transition-all duration-300 ${viewBtn}`}
       >
-        <Eye size={18} aria-hidden />
+        <Eye size={17} aria-hidden />
         Let&apos;s View
       </a>
     </div>
   )
 
+  const nameBlock = (
+    <>
+      <div className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-[var(--accent)]/40 bg-[var(--accent)]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--accent)] backdrop-blur-sm">
+        <Sparkles size={11} aria-hidden />
+        Available for hire
+      </div>
+      <h3 className="font-[family-name:var(--font-display)] text-[26px] font-bold leading-tight text-white drop-shadow-[0_2px_14px_rgba(0,0,0,0.7)]">
+        {title}
+      </h3>
+      <p className="mt-1 text-sm font-semibold tracking-wide text-[var(--accent)] drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)]">
+        {subtitle}
+      </p>
+    </>
+  )
+
+  const photoLayer = (isHover: boolean) => (
+    <div className="relative h-[430px] w-full overflow-hidden rounded-[26px]">
+      <motion.img
+        src={avatarSrc}
+        alt={profile.name}
+        variants={isHover ? photoVariants : undefined}
+        initial={isHover ? 'rest' : undefined}
+        className="absolute inset-0 h-full w-full object-cover object-top select-none"
+        draggable={false}
+      />
+
+      {/* fine grain texture for a premium, non-flat finish */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.06] mix-blend-overlay"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+        }}
+      />
+
+      <motion.div
+        className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,8,12,0)_25%,rgba(10,8,12,0.55)_55%,rgba(8,6,10,0.97)_100%)]"
+        variants={isHover ? scrimVariants : undefined}
+      />
+
+      <div className="pointer-events-none absolute inset-0 rounded-[26px] ring-1 ring-inset ring-white/10" />
+
+      <motion.div
+        className="absolute inset-x-0 bottom-0 flex flex-col items-center px-6 pb-6 text-center"
+        variants={isHover ? infoVariants : undefined}
+      >
+        {nameBlock}
+        <motion.div className="mt-4 w-full" variants={isHover ? buttonsVariants : undefined}>
+          {buttons}
+        </motion.div>
+      </motion.div>
+    </div>
+  )
+
   if (reduced) {
     return (
-      <article className={`${cardClass} p-6`}>
-        {header}
-        <div className="mt-6">{buttons}</div>
-      </article>
+      <div className={outerClass}>
+        <div className="absolute -inset-[1.5px] rounded-[28px] bg-[linear-gradient(135deg,var(--accent),transparent_40%,transparent_60%,var(--accent))] opacity-60" />
+        <article className={`relative rounded-[27px] bg-[var(--bg-primary)] p-[3px] ${cardSurface}`}>
+          {photoLayer(false)}
+        </article>
+      </div>
     )
   }
 
   return (
-    <motion.article
-      className={cardClass}
-      initial="rest"
-      whileHover="hover"
-      animate="rest"
-      variants={cardVariants}
-      onMouseMove={(e) => {
-        const rect = e.currentTarget.getBoundingClientRect()
-        mouseX.set(e.clientX - rect.left)
-        mouseY.set(e.clientY - rect.top)
-      }}
-      aria-label="Interactive resume card"
-    >
+    <div className={outerClass}>
+      {/* rotating gradient border frame */}
       <motion.div
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-        style={{ background: glow }}
+        className="absolute -inset-[1.5px] rounded-[28px] opacity-70"
+        style={{
+          background:
+            'conic-gradient(from 0deg, var(--accent), transparent 25%, transparent 50%, #6f7bff, transparent 75%, var(--accent))',
+        }}
+        animate={{ rotate: 360 }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
       />
-      <div className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-[var(--accent-soft)] blur-2xl" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,47,144,0.08),transparent_24%)]" />
 
-      <div className="relative md:px-6 pt-6 text-center">{header}</div>
-
-      <div className="relative mt-4 h-[220px] overflow-hidden">
-        <div className="pointer-events-none absolute bottom-0 left-1/2 h-28 w-40 -translate-x-1/2 rounded-full bg-[var(--accent-soft)] blur-2xl" />
-
+      <motion.article
+        className={`group relative overflow-hidden rounded-[27px] bg-[var(--bg-primary)] p-[3px] ${cardSurface}`}
+        initial="rest"
+        whileHover="hover"
+        animate="rest"
+        variants={cardVariants}
+        onMouseMove={(e) => {
+          const rect = e.currentTarget.getBoundingClientRect()
+          mouseX.set(e.clientX - rect.left)
+          mouseY.set(e.clientY - rect.top)
+        }}
+        aria-label="Interactive resume card"
+      >
         <motion.div
-          className="absolute inset-x-6 bottom-6 z-10 flex flex-col gap-3"
-          variants={buttonsVariants}
-        >
-          {buttons}
-        </motion.div>
-
-        <motion.img
-          src={avatarSrc}
-          alt=""
-          role="presentation"
-          variants={avatarVariants}
-          className="pointer-events-none absolute bottom-0 left-1/2 h-[230px] w-[230px] -translate-x-1/2 object-contain object-bottom select-none drop-shadow-[0_10px_24px_rgba(247,37,133,0.2)]"
-          draggable={false}
+          className="pointer-events-none absolute inset-0 z-20 rounded-[26px] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          style={{ background: glow }}
         />
-      </div>
-    </motion.article>
+        {photoLayer(true)}
+      </motion.article>
+    </div>
   )
 }
