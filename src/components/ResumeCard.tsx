@@ -1,5 +1,6 @@
 import { motion, useMotionTemplate, useMotionValue, type Variants } from 'framer-motion'
 import { Download, Eye, Sparkles } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { profile } from '../data/portfolio'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 
@@ -15,9 +16,9 @@ const cardVariants: Variants = {
 }
 
 const photoVariants: Variants = {
-  rest: { scale: 1.02 },
+  rest: { scale: 1 },
   hover: {
-    scale: 1.1,
+    scale: 1.08,
     transition: { duration: 0.7, ease: EASE },
   },
 }
@@ -64,6 +65,21 @@ const downloadBtn =
 const viewBtn =
   'bg-white/[0.08] text-white border border-white/20 backdrop-blur-md hover:bg-white/[0.16] hover:-translate-y-0.5'
 
+/** Mobile/touch screens skip hover-reveal — text & buttons stay pinned to the bottom instead. */
+function useIsCompactViewport() {
+  const [isCompact, setIsCompact] = useState(false)
+
+  useEffect(() => {
+    const query = window.matchMedia('(max-width: 640px)')
+    const update = () => setIsCompact(query.matches)
+    update()
+    query.addEventListener('change', update)
+    return () => query.removeEventListener('change', update)
+  }, [])
+
+  return isCompact
+}
+
 export interface ResumeCardProps {
   resumeUrl?: string
   title?: string
@@ -80,6 +96,9 @@ export function ResumeCard({
   className = '',
 }: ResumeCardProps) {
   const reduced = useReducedMotion()
+  const isCompact = useIsCompactViewport()
+  const staticLayout = reduced || isCompact
+
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
 
@@ -124,51 +143,52 @@ export function ResumeCard({
     </>
   )
 
-  const photoLayer = (isHover: boolean) => (
+  const photoLayer = (
     <div className="relative h-[430px] w-full overflow-hidden rounded-[26px]">
       <motion.img
         src={avatarSrc}
         alt={profile.name}
-        variants={isHover ? photoVariants : undefined}
-        initial={isHover ? 'rest' : undefined}
+        variants={staticLayout ? undefined : photoVariants}
         className="absolute inset-0 h-full w-full object-cover object-top select-none"
         draggable={false}
       />
 
-      {/* fine grain texture for a premium, non-flat finish */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.06] mix-blend-overlay"
-        style={{
-          backgroundImage:
-            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
-        }}
-      />
-
+      {/* base scrim — static & already dark enough at bottom on mobile so text needs no hover to read */}
       <motion.div
-        className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,8,12,0)_25%,rgba(10,8,12,0.55)_55%,rgba(8,6,10,0.97)_100%)]"
-        variants={isHover ? scrimVariants : undefined}
+        className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,8,12,0)_25%,rgba(10,8,12,0.6)_50%,rgba(8,6,10,0.97)_100%)]"
+        variants={staticLayout ? undefined : scrimVariants}
+        initial={staticLayout ? { opacity: 0.94 } : undefined}
+        animate={staticLayout ? { opacity: 0.94 } : undefined}
       />
 
       <div className="pointer-events-none absolute inset-0 rounded-[26px] ring-1 ring-inset ring-white/10" />
 
+      {/* text pinned to the true bottom edge — not pushed up by the buttons below */}
       <motion.div
-        className="absolute inset-x-0 bottom-0 flex flex-col items-center px-6 pb-6 text-center"
-        variants={isHover ? infoVariants : undefined}
+        className="absolute inset-x-0 bottom-0 flex flex-col items-center px-6 pb-5 text-center"
+        variants={staticLayout ? undefined : infoVariants}
       >
         {nameBlock}
-        <motion.div className="mt-4 w-full" variants={isHover ? buttonsVariants : undefined}>
-          {buttons}
-        </motion.div>
+      </motion.div>
+
+      {/* buttons live in their own layer so they never reserve space above the text */}
+      <motion.div
+        className="absolute inset-x-0 bottom-[130px] px-6"
+        variants={staticLayout ? undefined : buttonsVariants}
+        initial={staticLayout ? { opacity: 1, y: 0 } : undefined}
+        animate={staticLayout ? { opacity: 1, y: 0 } : undefined}
+      >
+        {buttons}
       </motion.div>
     </div>
   )
 
-  if (reduced) {
+  if (staticLayout) {
     return (
       <div className={outerClass}>
         <div className="absolute -inset-[1.5px] rounded-[28px] bg-[linear-gradient(135deg,var(--accent),transparent_40%,transparent_60%,var(--accent))] opacity-60" />
         <article className={`relative rounded-[27px] bg-[var(--bg-primary)] p-[3px] ${cardSurface}`}>
-          {photoLayer(false)}
+          {photoLayer}
         </article>
       </div>
     )
@@ -204,7 +224,7 @@ export function ResumeCard({
           className="pointer-events-none absolute inset-0 z-20 rounded-[26px] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           style={{ background: glow }}
         />
-        {photoLayer(true)}
+        {photoLayer}
       </motion.article>
     </div>
   )

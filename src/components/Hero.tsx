@@ -30,7 +30,7 @@ export function Hero() {
             className="mb-4 text-base text-[var(--color-text)] sm:text-lg md:text-xl"
           >
             <motion.span
-              className="mr-2 inline-block origin-[70%_70%]"
+              className="mr-2 inline-block origin-[70%_70%] italic"
               animate={{ rotate: [0, 14, -8, 14, 0] }}
               transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 2 }}
             >
