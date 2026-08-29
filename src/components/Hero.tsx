@@ -99,7 +99,7 @@ export function Hero() {
           e.preventDefault()
           scrollToSection('about', lenis)
         }}
-        className="absolute bottom-5 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-[var(--color-muted)] transition-colors hover:text-[var(--color-accent)] sm:bottom-8"
+        className="absolute bottom-5 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-[var(--color-muted)] transition-colors hover:text-[var(--color-accent)] sm:bottom-8"
         aria-label="Scroll to about"
         animate={{ y: [0, 8, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}

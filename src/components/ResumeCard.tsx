@@ -24,32 +24,9 @@ const photoVariants: Variants = {
 }
 
 const scrimVariants: Variants = {
-  rest: { opacity: 0.6 },
+  rest: { opacity: 0.55 },
   hover: {
-    opacity: 0.94,
-    transition: { duration: DURATION, ease: EASE },
-  },
-}
-
-const buttonsVariants: Variants = {
-  rest: {
-    opacity: 0,
-    y: 18,
-    pointerEvents: 'none',
-    transition: { duration: DURATION, ease: EASE },
-  },
-  hover: {
-    opacity: 1,
-    y: 0,
-    pointerEvents: 'auto',
-    transition: { duration: DURATION, ease: EASE, delay: 0.06 },
-  },
-}
-
-const infoVariants: Variants = {
-  rest: { y: 0 },
-  hover: {
-    y: -8,
+    opacity: 0.92,
     transition: { duration: DURATION, ease: EASE },
   },
 }
@@ -65,7 +42,9 @@ const downloadBtn =
 const viewBtn =
   'bg-white/[0.08] text-white border border-white/20 backdrop-blur-md hover:bg-white/[0.16] hover:-translate-y-0.5'
 
-/** Mobile/touch screens skip hover-reveal — text & buttons stay pinned to the bottom instead. */
+const viewBtnSolid = 'bg-white text-[#0f0f0f] hover:bg-zinc-100'
+
+/** Touch/small screens get a plain stacked layout — no hover-reveal, nothing overlapping the photo. */
 function useIsCompactViewport() {
   const [isCompact, setIsCompact] = useState(false)
 
@@ -106,97 +85,68 @@ export function ResumeCard({
 
   const outerClass = `relative w-[300px] sm:w-[320px] ${className}`
 
-  const buttons = (
-    <div className="flex flex-col gap-2.5">
-      <a
-        href={resumeUrl}
-        download="Areeba_Arshad_Frontend-Developer(React).pdf"
-        className={`flex w-full items-center justify-center gap-2 rounded-full py-3 text-sm font-semibold text-white transition-all duration-300 ${downloadBtn}`}
-      >
-        <Download size={17} aria-hidden />
-        Download
-      </a>
-      <a
-        href={resumeUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={`flex w-full items-center justify-center gap-2 rounded-full py-3 text-sm font-semibold transition-all duration-300 ${viewBtn}`}
-      >
-        <Eye size={17} aria-hidden />
-        Let&apos;s View
-      </a>
+  const badge = (
+    <div className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-[var(--accent)]/40 bg-[var(--accent)]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--accent)]">
+      <Sparkles size={11} aria-hidden />
+      Available for hire
     </div>
   )
 
-  const nameBlock = (
-    <>
-      <div className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-[var(--accent)]/40 bg-[var(--accent)]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--accent)] backdrop-blur-sm">
-        <Sparkles size={11} aria-hidden />
-        Available for hire
-      </div>
-      <h3 className="font-[family-name:var(--font-display)] text-[26px] font-bold leading-tight text-white drop-shadow-[0_2px_14px_rgba(0,0,0,0.7)]">
-        {title}
-      </h3>
-      <p className="mt-1 text-sm font-semibold tracking-wide text-[var(--accent)] drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)]">
-        {subtitle}
-      </p>
-    </>
-  )
-
-  const photoLayer = (
-    <div className="relative h-[430px] w-full overflow-hidden rounded-[26px]">
-      <motion.img
-        src={avatarSrc}
-        alt={profile.name}
-        variants={staticLayout ? undefined : photoVariants}
-        className="absolute inset-0 h-full w-full object-cover object-top select-none"
-        draggable={false}
-      />
-
-      {/* base scrim — static & already dark enough at bottom on mobile so text needs no hover to read */}
-      <motion.div
-        className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,8,12,0)_25%,rgba(10,8,12,0.6)_50%,rgba(8,6,10,0.97)_100%)]"
-        variants={staticLayout ? undefined : scrimVariants}
-        initial={staticLayout ? { opacity: 0.94 } : undefined}
-        animate={staticLayout ? { opacity: 0.94 } : undefined}
-      />
-
-      <div className="pointer-events-none absolute inset-0 rounded-[26px] ring-1 ring-inset ring-white/10" />
-
-      {/* text pinned to the true bottom edge — not pushed up by the buttons below */}
-      <motion.div
-        className="absolute inset-x-0 bottom-0 flex flex-col items-center px-6 pb-5 text-center"
-        variants={staticLayout ? undefined : infoVariants}
-      >
-        {nameBlock}
-      </motion.div>
-
-      {/* buttons live in their own layer so they never reserve space above the text */}
-      <motion.div
-        className="absolute inset-x-0 bottom-[130px] px-6"
-        variants={staticLayout ? undefined : buttonsVariants}
-        initial={staticLayout ? { opacity: 1, y: 0 } : undefined}
-        animate={staticLayout ? { opacity: 1, y: 0 } : undefined}
-      >
-        {buttons}
-      </motion.div>
-    </div>
-  )
-
+  // ---------- MOBILE / REDUCED-MOTION: plain stacked card, nothing overlapping ----------
   if (staticLayout) {
     return (
       <div className={outerClass}>
         <div className="absolute -inset-[1.5px] rounded-[28px] bg-[linear-gradient(135deg,var(--accent),transparent_40%,transparent_60%,var(--accent))] opacity-60" />
-        <article className={`relative rounded-[27px] bg-[var(--bg-primary)] p-[3px] ${cardSurface}`}>
-          {photoLayer}
+        <article className={`relative overflow-hidden rounded-[27px] bg-[var(--bg-primary)] p-[3px] ${cardSurface}`}>
+          <div className="overflow-hidden rounded-[24px]">
+            <div className="relative h-[260px] w-full">
+              <img
+                src={avatarSrc}
+                alt={profile.name}
+                className="absolute inset-0 h-full w-full object-cover object-top"
+                draggable={false}
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,8,12,0)_55%,rgba(8,6,10,0.9)_100%)]" />
+            </div>
+
+            <div className="bg-[var(--bg-primary)] px-6 pb-6 pt-4 text-center">
+              {badge}
+              <h3 className="font-[family-name:var(--font-display)] text-2xl font-bold text-[var(--text-primary)]">
+                {title}
+              </h3>
+              <p className="mt-1 text-sm font-semibold tracking-wide text-[var(--accent)]">
+                {subtitle}
+              </p>
+
+              <div className="mt-5 flex flex-col gap-2.5">
+                <a
+                  href={resumeUrl}
+                  download="Areeba_Arshad_Frontend-Developer(React).pdf"
+                  className={`flex w-full items-center justify-center gap-2 rounded-full py-3 text-sm font-semibold text-white transition-colors ${downloadBtn}`}
+                >
+                  <Download size={17} aria-hidden />
+                  Download
+                </a>
+                <a
+                  href={resumeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex w-full items-center justify-center gap-2 rounded-full py-3 text-sm font-semibold transition-colors ${viewBtnSolid}`}
+                >
+                  <Eye size={17} aria-hidden />
+                  Let&apos;s View
+                </a>
+              </div>
+            </div>
+          </div>
         </article>
       </div>
     )
   }
 
+  // ---------- DESKTOP: full-bleed photo, hover reveals buttons via a height collapse (no fixed offsets) ----------
   return (
     <div className={outerClass}>
-      {/* rotating gradient border frame */}
       <motion.div
         className="absolute -inset-[1.5px] rounded-[28px] opacity-70"
         style={{
@@ -224,7 +174,57 @@ export function ResumeCard({
           className="pointer-events-none absolute inset-0 z-20 rounded-[26px] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           style={{ background: glow }}
         />
-        {photoLayer}
+
+        <div className="relative h-[430px] w-full overflow-hidden rounded-[26px]">
+          <motion.img
+            src={avatarSrc}
+            alt={profile.name}
+            variants={photoVariants}
+            className="absolute inset-0 h-full w-full object-cover object-top select-none"
+            draggable={false}
+          />
+
+          <motion.div
+            className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,8,12,0)_30%,rgba(10,8,12,0.6)_58%,rgba(8,6,10,0.97)_100%)]"
+            variants={scrimVariants}
+          />
+
+          <div className="pointer-events-none absolute inset-0 rounded-[26px] ring-1 ring-inset ring-white/10" />
+
+          {/* text always sits flush at the bottom — buttons below it collapse to zero height at rest,
+              so they never push the text up, and expand on hover via a pure CSS grid-rows transition */}
+          <div className="absolute inset-x-0 bottom-0 flex flex-col items-center px-6 pb-6 text-center">
+            {badge}
+            <h3 className="font-[family-name:var(--font-display)] text-[26px] font-bold leading-tight text-white drop-shadow-[0_2px_14px_rgba(0,0,0,0.7)]">
+              {title}
+            </h3>
+            <p className="mt-1 text-sm font-semibold tracking-wide text-[var(--accent)] drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)]">
+              {subtitle}
+            </p>
+
+            <div className="grid w-full grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-in-out group-hover:mt-4 group-hover:grid-rows-[1fr]">
+              <div className="flex flex-col gap-2.5 overflow-hidden">
+                <a
+                  href={resumeUrl}
+                  download="Areeba_Arshad_Frontend-Developer(React).pdf"
+                  className={`flex w-full items-center justify-center gap-2 rounded-full py-3 text-sm font-semibold text-white transition-all duration-300 ${downloadBtn}`}
+                >
+                  <Download size={17} aria-hidden />
+                  Download
+                </a>
+                <a
+                  href={resumeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex w-full items-center justify-center gap-2 rounded-full py-3 text-sm font-semibold transition-all duration-300 ${viewBtn}`}
+                >
+                  <Eye size={17} aria-hidden />
+                  Let&apos;s View
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </motion.article>
     </div>
   )
