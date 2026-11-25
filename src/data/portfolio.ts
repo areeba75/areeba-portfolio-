@@ -63,19 +63,6 @@ export const experience: ExperienceItem[] = [
     ],
   },
   {
-    role: 'Frontend React Developer',
-    company: 'North Rays Technologies',
-    location: 'Lahore, Pakistan',
-    employment: 'On-site · Full-time',
-    period: 'Aug 2024 — Oct 2024',
-    highlights: [
-      'Built and maintained responsive business websites using React.js and TypeScript',
-      'Developed reusable UI components with modern, performance-focused frontend architecture',
-      'Collaborated on-site with teams to deliver polished client-facing web experiences',
-      'Integrated REST APIs and ensured cross-browser compatibility across devices',
-    ],
-  },
-  {
     role: 'Frontend Developer Intern',
     company: 'AppsGenii Technologies',
     location: 'Lahore, Pakistan',
@@ -173,15 +160,6 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    title: 'World Wide Admission Hub',
-    stack: ['Next.js', 'TypeScript', 'React Query'],
-    description:
-      'AI-powered admission platform helping students apply to universities across multiple countries with eligibility checking, dashboards, authentication, and AI-assisted consultation features.',
-    gradient: 'from-sky-500/20 to-cyan-500/10',
-    image: '/wwah.png',
-    href: 'https://wwah.ai/',
-  },
-  {
     title: 'Carflix',
     stack: ['Next.js', 'TypeScript'],
     description:
@@ -200,22 +178,13 @@ export const projects: Project[] = [
     href: 'https://redseamall.com/',
   },
   {
-    title: 'Pucture Platform / Halagaty',
+    title: 'Pucture Platform',
     stack: ['React.js', 'TypeScript', 'Next.js'],
     description:
       'Scalable frontend modules, reusable UI components, localization features, and responsive interfaces for digital platform experiences.',
     gradient: 'from-emerald-500/20 to-teal-500/10',
     image: '/jaldi.png',
     href: 'http://pucture-frontend.scraperrs.com/',
-  },
-  {
-    title: 'Stylz',
-    stack: ['React.js', 'TypeScript', 'REST APIs'],
-    description:
-      'Responsive frontend interfaces, API integrations, dashboard systems, and modern UI implementation for a SaaS-based styling platform.',
-    gradient: 'from-violet-500/20 to-fuchsia-500/10',
-    image: '/stylz.png',
-    href: 'https://dev.stylz.me/',
   },
   {
     title: 'Pulsse',
@@ -246,13 +215,49 @@ export const projects: Project[] = [
     href: 'https://pak-preneurships.vercel.app/',
   },
   {
-    title: 'Halagaty',
-    stack: ['React.js', 'Next.js', 'TypeScript'],
+    title: '123Flights',
+    stack: ['Next.js', 'TypeScript', 'Tailwind CSS'],
     description:
-      'Fresh groceries and daily deals platform with responsive storefront UI, product discovery, and a modern retail-focused shopping experience.',
-    gradient: 'from-green-500/20 to-emerald-500/10',
-    image: '/halagaty.png',
-    href: 'https://dev.halagaty.com/',
+      'UK travel agency platform for cheap flights to Africa and worldwide — indicative fares, quote request flow, airline guides, and destination and holiday pages.',
+    gradient: 'from-blue-500/20 to-sky-500/10',
+    image: '/123flight.png',
+    href: 'https://123flights.vercel.app/',
+  },
+  {
+    title: 'Genrexa',
+    stack: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+    description:
+      'Agency website for a software studio offering websites, apps, SaaS, and AI solutions — service pages, live AI demos (voice, gesture, assistant), and consultation flow.',
+    gradient: 'from-purple-500/20 to-pink-500/10',
+    image: '/genrexa.png',
+    href: 'https://genrexa.com/',
+  },
+  {
+    title: 'DiscDeal',
+    stack: ['Next.js', 'TypeScript'],
+    description:
+      'Deal discovery tool for Pakistan that surfaces brand sales and bank card discounts in one search, with support for English, Roman Urdu, and Urdu.',
+    gradient: 'from-yellow-500/20 to-orange-500/10',
+    image: '/discdeal.png',
+    href: 'https://discdeal.vercel.app/',
+  },
+  {
+    title: 'HostelLink',
+    stack: ['React.js', 'TypeScript'],
+    description:
+      'Verified hostel listing platform for students in Pakistan — advanced search, student reviews, 360° virtual tours, direct owner contact, and free listings for owners.',
+    gradient: 'from-teal-500/20 to-cyan-500/10',
+    image: '/hostellink.png',
+    href: 'https://www.hostellink.live/',
+  },
+  {
+    title: 'TripNex',
+    stack: ['React.js', 'TypeScript'],
+    description:
+      'Travel agency website for flights and holidays with destination and airline guides, deals, and an enquiry flow where agents confirm fares before booking.',
+    gradient: 'from-fuchsia-500/20 to-rose-500/10',
+    image: '/tripnex.png',
+    href: 'https://opulent-palegoldenrod-squirrel-91.hostingersite.com/',
   },
 ]
 
@@ -299,12 +304,6 @@ export const testimonials = [
       'Reliable, fast, and detail-oriented — she consistently ships polished frontend features across complex SaaS dashboards.',
     author: 'Engineering Lead',
     role: 'Scraperrs',
-  },
-  {
-    quote:
-      'Strong React skills and great collaboration. She translates designs into responsive, maintainable UI systems effortlessly.',
-    author: 'Design & Dev Team',
-    role: 'North Rays Technologies',
   },
 ]
 

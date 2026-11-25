@@ -24,11 +24,13 @@ export function LinkedInCard() {
             <LinkedInIcon size={28} />
           </div>
 
-          <div className="flex items-center gap-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-[#0A66C2] to-[#004182] text-2xl font-bold text-white hidden md:block">
-              AA
-            </div>
-            <div>
+          <div className="flex items-center gap-4 pr-10">
+            <img
+              src="/profile.jpeg"
+              alt={profile.name}
+              className="h-14 w-14 shrink-0 rounded-full object-cover ring-2 ring-[#0A66C2] md:h-16 md:w-16"
+            />
+            <div className="min-w-0">
               <h3 className="font-[family-name:var(--font-display)] text-lg font-bold text-[var(--color-text)]">
                 {profile.name}
               </h3>
